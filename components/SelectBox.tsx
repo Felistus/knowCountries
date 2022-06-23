@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import { Type } from "./ModeToggle";
 
 const regions = [
   { name: "Filter by Region", default: true },
@@ -11,14 +12,21 @@ const regions = [
   { name: "Oceania" },
 ];
 
-export default function SelectBox() {
+export default function SelectBox({ checkedTheme }: Type) {
   const [selected, setSelected] = useState(regions[0]);
 
   return (
     <div className="w-72 h-10 text-slate-300">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative h-10 ">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg h-10  bg-[#2b3945] pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button
+            className={
+              `${
+                checkedTheme ? " bg-[#2b3945] " : " bg-white text-[#111517] "
+              }` +
+              "relative w-full cursor-default rounded-lg h-10 pl-3 pr-10 text-left shadow-md focus:outline-none "
+            }
+          >
             <span className="block truncate">{selected.name}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon
@@ -33,7 +41,14 @@ export default function SelectBox() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#2b3945] py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options
+              className={
+                `${
+                  checkedTheme ? " bg-[#2b3945] " : " bg-white text-[#111517] "
+                }` +
+                "absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              }
+            >
               {regions.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}

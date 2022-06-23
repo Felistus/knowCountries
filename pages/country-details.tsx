@@ -1,17 +1,39 @@
+import Link from "next/link";
+import { useState } from "react";
+import DarkLeftArrowIcon from "../components/icons/DarkLeftArrowIcon";
 import LeftArrowIcon from "../components/icons/LeftArrowIcon";
 import Navigation from "../components/Navigation";
 
 export default function CountryDetails() {
+  const [checkedTheme, setCheckedTheme] = useState<boolean>(false);
   return (
-    <div className="bg-[#202c37] h-screen overflow-y-auto text-slate-300">
+    <div
+      className={
+        `${
+          checkedTheme ? " dark:bg-[#202c37] text-white " : " bg-[#fafafa] "
+        }` + "h-screen overflow-y-auto "
+      }
+    >
       <main className="h-screen">
-        <Navigation />
+        <Navigation
+          checkedTheme={checkedTheme}
+          setCheckedTheme={setCheckedTheme}
+        />
 
         <section className="lg:px-20 px-4 my-10">
-          <button className="flex items-center space-x-2 hover:shadow-md bg-[#2b3945] h-10 px-3 font-medium capitalize rounded-lg">
-            <LeftArrowIcon />
-            back
-          </button>
+          <Link href="/">
+            <button
+              className={
+                `${
+                  checkedTheme ? " bg-[#2b3945] " : " bg-white border-[1px] "
+                }` +
+                "flex items-center space-x-2 hover:shadow-md h-7 px-4 font-medium capitalize rounded-lg"
+              }
+            >
+              {checkedTheme ? <LeftArrowIcon /> : <DarkLeftArrowIcon />}
+              back
+            </button>
+          </Link>
         </section>
 
         <section className="lg:px-20 px-4 pb-4 md:pb-0 ">
@@ -68,13 +90,37 @@ export default function CountryDetails() {
 
               <span className="flex space-x-2">
                 <p className="font-semibold">Border Countries: </p>
-                <p className="bg-[#2b3945] font-medium px-2 rounded-lg ">
+                <p
+                  className={
+                    `${
+                      checkedTheme
+                        ? " bg-[#2b3945] "
+                        : " bg-white border-[1px] "
+                    }` + "shadow-sm font-medium px-2 rounded-lg "
+                  }
+                >
                   France
                 </p>
-                <p className="bg-[#2b3945] font-medium px-2 rounded-lg ">
+                <p
+                  className={
+                    `${
+                      checkedTheme
+                        ? " bg-[#2b3945] "
+                        : " bg-white border-[1px] "
+                    }` + "shadow-sm font-medium px-2 rounded-lg "
+                  }
+                >
                   Germany
                 </p>
-                <p className="bg-[#2b3945] font-medium px-2 rounded-lg ">
+                <p
+                  className={
+                    `${
+                      checkedTheme
+                        ? " bg-[#2b3945] "
+                        : " bg-white border-[1px] "
+                    }` + "shadow-sm font-medium px-2 rounded-lg "
+                  }
+                >
                   Netherland
                 </p>
               </span>

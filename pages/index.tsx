@@ -2,19 +2,35 @@ import { SearchIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
+import ModeToggle from "../components/ModeToggle";
 import Navigation from "../components/Navigation";
 import SelectBox from "../components/SelectBox";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+  const [checkedTheme, setCheckedTheme] = useState<boolean>(true);
   return (
-    <div className="bg-[#202c37] h-screen text-slate-300 overflow-y-auto ">
+    <div
+      className={
+        `${checkedTheme ? " dark:bg-[#202c37] " : " bg-[#fafafa] "}` +
+        "h-screen overflow-y-auto "
+      }
+    >
       <main className="h-screen">
         <section>
-          <Navigation />
+          <Navigation
+            checkedTheme={checkedTheme}
+            setCheckedTheme={setCheckedTheme}
+          />
         </section>
         <section className="lg:px-20 px-4 my-6 md:h-10 flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0  ">
-          <div className="relative flex items-center bg-[#2b3945] w-full md:w-[400px] px-3 h-10 rounded-lg  ">
+          <div
+            className={
+              `${checkedTheme ? " bg-[#2b3945] " : " bg-white  "}` +
+              "relative flex items-center  w-full md:w-[400px] px-3 h-10 rounded-lg shadow-lg  "
+            }
+          >
             <span>
               <SearchIcon className="h-5 w-5" />
             </span>
@@ -23,10 +39,16 @@ const Home: NextPage = () => {
               name="countrySearch"
               id="countrySearch"
               placeholder="Search for a country..."
-              className="flex-1 outline-none px-2 rounded-lg border-none bg-transparent text-sm "
-            />
+              className={
+                `${checkedTheme ? "" : " text-[#858585] "}` +
+                "flex-1 outline-none px-2 rounded-lg border-none bg-transparent text-sm "
+              }
+            />{" "}
           </div>
-          <SelectBox />
+          <SelectBox
+            checkedTheme={checkedTheme}
+            setCheckedTheme={setCheckedTheme}
+          />
         </section>
 
         <section className="w-full lg:h-[calc(100vh-132px)] px-4 py-4 md:py-0">
