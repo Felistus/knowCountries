@@ -2,7 +2,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import ModeToggle from "../components/ModeToggle";
+import Navigation from "../components/Navigation";
 import SelectBox from "../components/SelectBox";
 import styles from "../styles/Home.module.css";
 
@@ -10,14 +10,9 @@ const Home: NextPage = () => {
   return (
     <div className="bg-[#202c37] h-screen text-slate-300 overflow-y-auto ">
       <main className="h-screen">
-        <section className="bg-[#2b3945] h-11 px-4 lg:px-20 py-4 flex justify-between items-center">
-          <p>Where in the world?</p>
-          <div className="flex items-center space-x-1">
-            <ModeToggle />
-            <p>Dark Mode</p>
-          </div>
+        <section>
+          <Navigation />
         </section>
-
         <section className="lg:px-20 px-4 my-6 md:h-10 flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0  ">
           <div className="relative flex items-center bg-[#2b3945] w-full md:w-[400px] px-3 h-10 rounded-lg  ">
             <span>
