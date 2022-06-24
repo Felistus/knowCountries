@@ -1,12 +1,9 @@
 import { SearchIcon } from "@heroicons/react/solid";
 import type { NextPage } from "next";
-import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import ModeToggle from "../components/ModeToggle";
 import Navigation from "../components/Navigation";
 import SelectBox from "../components/SelectBox";
-import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const [checkedTheme, setCheckedTheme] = useState<boolean>(true);

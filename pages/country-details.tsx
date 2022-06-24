@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import DarkLeftArrowIcon from "../components/icons/DarkLeftArrowIcon";
 import LeftArrowIcon from "../components/icons/LeftArrowIcon";
@@ -38,11 +39,12 @@ export default function CountryDetails() {
 
         <section className="lg:px-20 px-4 pb-4 md:pb-0 ">
           <div className="md:flex justify-between md:h-[300px] space-y-4 md:space-y-0 ">
-            <div className="md:w-[400px] md:h-full h-[300px] bg-green-900">
-              <img
-                src="/vercel.svg"
-                alt="country-flag"
-                className="w-full h-full"
+            <div className="md:w-[400px] md:h-full h-[300px] bg-green-900 overflow-hidden">
+              <Image
+                src={"/vercel.svg"}
+                layout="responsive"
+                width={300}
+                height={300}
               />
             </div>
             <div className=" flex flex-col justify-center ">
