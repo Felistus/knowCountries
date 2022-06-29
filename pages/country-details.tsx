@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DarkLeftArrowIcon from "../components/icons/DarkLeftArrowIcon";
 import LeftArrowIcon from "../components/icons/LeftArrowIcon";
 import Navigation from "../components/Navigation";
+import axios from "axios";
 
 export default function CountryDetails() {
   const [checkedTheme, setCheckedTheme] = useState<boolean>(false);
+
   return (
     <div
       className={
@@ -37,21 +39,20 @@ export default function CountryDetails() {
           </Link>
         </section>
 
-        <section className="lg:px-20 px-4 pb-4 md:pb-0 ">
-          <div className="md:flex justify-between md:h-[300px] space-y-4 md:space-y-0 ">
-            <div className="md:w-[400px] md:h-full h-[300px] bg-green-900 overflow-hidden">
-              <Image
-                src={"/vercel.svg"}
-                layout="responsive"
-                width={300}
-                height={300}
+        <section className="lg:px-20 px-4 pb-4 lg:pb-0 ">
+          <div className="lg:flex w-fit lg:w-auto mx-auto lg:justify-between h-[300px] bg-red-900 max-w-[1200px] lg:space-x-8 lg:mx-auto space-y-4 lg:space-y-0 ">
+            <div className="custom-md:w-[400px] w-full md:h-full h-[300px] bg-green-900 overflow-hidden">
+              <img
+                src="/vercel.svg"
+                alt="country details"
+                className="w-full h-full"
               />
             </div>
-            <div className=" flex flex-col justify-center ">
-              <div className="font-bold capitalize text-2xl flex flex-col ">
+            <div className=" flex flex-col justify-center pb-4 ">
+              <div className="font-bold capitalize text-2xl ">
                 <p>belgium</p>
               </div>
-              <div className="flex my-8 space-x-4 text-base ">
+              <div className="my-8 text-base lg:flex ">
                 <div>
                   <span className="flex space-x-2">
                     <p className="font-semibold">Native Name: </p>
@@ -90,41 +91,43 @@ export default function CountryDetails() {
                 </div>
               </div>
 
-              <span className="flex space-x-2">
+              <span className="">
                 <p className="font-semibold">Border Countries: </p>
-                <p
-                  className={
-                    `${
-                      checkedTheme
-                        ? " bg-[#2b3945] "
-                        : " bg-white border-[1px] "
-                    }` + "shadow-sm font-medium px-2 rounded-lg "
-                  }
-                >
-                  France
-                </p>
-                <p
-                  className={
-                    `${
-                      checkedTheme
-                        ? " bg-[#2b3945] "
-                        : " bg-white border-[1px] "
-                    }` + "shadow-sm font-medium px-2 rounded-lg "
-                  }
-                >
-                  Germany
-                </p>
-                <p
-                  className={
-                    `${
-                      checkedTheme
-                        ? " bg-[#2b3945] "
-                        : " bg-white border-[1px] "
-                    }` + "shadow-sm font-medium px-2 rounded-lg "
-                  }
-                >
-                  Netherland
-                </p>
+                <div className="flex space-x-2">
+                  <p
+                    className={
+                      `${
+                        checkedTheme
+                          ? " bg-[#2b3945] "
+                          : " bg-white border-[1px] "
+                      }` + "shadow-sm font-medium px-2 rounded-lg "
+                    }
+                  >
+                    France
+                  </p>
+                  <p
+                    className={
+                      `${
+                        checkedTheme
+                          ? " bg-[#2b3945] "
+                          : " bg-white border-[1px] "
+                      }` + "shadow-sm font-medium px-2 rounded-lg "
+                    }
+                  >
+                    Germany
+                  </p>
+                  <p
+                    className={
+                      `${
+                        checkedTheme
+                          ? " bg-[#2b3945] "
+                          : " bg-white border-[1px] "
+                      }` + "shadow-sm font-medium px-2 rounded-lg "
+                    }
+                  >
+                    Netherland
+                  </p>
+                </div>
               </span>
             </div>
           </div>

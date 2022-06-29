@@ -18,3 +18,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.customScroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background: #525861;
+  border-radius: 8px;
+}
