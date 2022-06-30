@@ -1,14 +1,13 @@
 import { SearchIcon } from "@heroicons/react/solid";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import SelectBox from "./SelectBox";
-import debounce from "lodash.debounce";
 
 export default function SearchFilterBox(props: any) {
   function handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
     props.setSearchWord(event.target.value);
   }
   return (
-    <div className="lg:w-[1000px] mx-auto flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0 ">
+    <div className="z-40 lg:w-[1000px] mx-auto flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0 ">
       <div
         className={
           `${props.checkedTheme ? " bg-[#2b3945] " : " bg-white  "}` +
@@ -33,7 +32,7 @@ export default function SearchFilterBox(props: any) {
       <SelectBox
         checkedTheme={props.checkedTheme}
         setCheckedTheme={props.setCheckedTheme}
-        setFilteredCountryByRegion={props.setFilteredCountryByRegion}
+        setRegionOption={props.setRegionOption}
       />
     </div>
   );

@@ -1,10 +1,21 @@
 import axios from "axios";
 
-export const fetchCountries = async (): Promise<{ data: any }> => {
-  try {
-    const { data } = await axios.get("https://restcountries.com/v2/all");
-    return { data };
-  } catch (error: any) {
-    return error;
-  }
+export const fetchCountries = async () => {
+  const data = await axios.get(`/api/get-all-countries-handler`);
+  return data;
+};
+
+export const searchCountryByName = async (name: string) => {
+  const data = await axios.get(
+    `/api/search-country-by-name-handler?name=${name}`
+  );
+  return data;
+};
+
+export const filterByRegion = async (region: string) => {
+  const selectedRegion = region.toLowerCase();
+  const data = await axios.get(
+    `/api/get-country-by-region-handler?region=${selectedRegion}`
+  );
+  return data;
 };
