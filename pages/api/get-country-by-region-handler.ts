@@ -6,6 +6,10 @@ export default async function getCountryByRegionHandler(
   res: NextApiResponse
 ) {
   const { region } = req.query;
-  const country = await getCountryByRegion(region as string);
-  return res.send(country);
+  try {
+    const country = await getCountryByRegion(region as string);
+    res.status(200).send(country);
+  } catch (error: any) {
+    res.status(error.response.status).send(error.response.status);
+  }
 }

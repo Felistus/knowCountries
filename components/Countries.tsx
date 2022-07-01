@@ -7,7 +7,6 @@ export const imageLoader = ({ src, width, quality }: any) => {
 
 export default function Countries(props: any) {
   const router = useRouter();
-
   return (
     <>
       {props.countries &&

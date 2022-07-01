@@ -6,6 +6,10 @@ export default async function searchCountryByNameHandler(
   res: NextApiResponse
 ) {
   const { name } = req.query;
-  const searchedCountry = await searchByName(name as string);
-  return res.send(searchedCountry);
+  try {
+    const result = await searchByName(name as string);
+    res.status(200).send(result);
+  } catch (error: any) {
+    res.status(error.response.status).send(error.response.status);
+  }
 }

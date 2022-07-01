@@ -1,30 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { imageLoader } from "../components/Countries";
 import DarkLeftArrowIcon from "../components/icons/DarkLeftArrowIcon";
 import LeftArrowIcon from "../components/icons/LeftArrowIcon";
 import Navigation from "../components/Navigation";
-import { searchCountryByFullName } from "../service/utilities";
+import { getCountryByFullNameFetcher } from "../service/utilities";
+import useSWR from "swr";
 
 export default function CountryDetails() {
+  const [checkedTheme, setCheckedTheme] = useState<boolean>(false);
   const router = useRouter();
   const { name } = router.query;
-  const [checkedTheme, setCheckedTheme] = useState<boolean>(false);
-  const [countryDetails, setCountryDetails] = useState<any[]>([]);
+  const { data: selectedCountry, error } = useSWR(
+    name,
+    getCountryByFullNameFetcher
+  );
 
-  async function searchByName() {
-    const { data } = await searchCountryByFullName(name as string);
-    if (data) {
-      setCountryDetails(data);
-    }
-    return data;
-  }
-
-  useEffect(() => {
-    searchByName();
-  }, []);
   return (
     <div
       className={
@@ -58,8 +51,8 @@ export default function CountryDetails() {
         </section>
 
         <section className="lg:px-20 px-4 pb-4 lg:pb-0  ">
-          {countryDetails &&
-            countryDetails.map((country: any, index: number) => (
+          {selectedCountry?.data &&
+            selectedCountry?.data.map((country: any, index: number) => (
               <div
                 key={index}
                 className="lg:flex w-fit lg:w-auto mx-auto h-[250px] max-w-[1000px] lg:space-x-8 lg:mx-auto space-y-4 lg:space-y-0 "
@@ -74,12 +67,12 @@ export default function CountryDetails() {
                     objectFit="cover"
                   />
                 </div>
-                <div className=" flex flex-1 flex-col justify-center pb-4  ">
+                <div className=" flex flex-1 flex-col justify-center pb-4 py-3">
                   <div className="font-bold capitalize text-2xl ">
                     <p>{country.name.common}</p>
                   </div>
-                  <div className="my-4 text-base lg:space-x-4 lg:flex justify-between  ">
-                    <div className=" ">
+                  <div className="my-4 text-sm lg:space-x-4 lg:flex justify-between items-center  ">
+                    <div>
                       <span className="flex space-x-2 ">
                         <p className="font-semibold">Area: </p>
                         <p>{country.area}</p>

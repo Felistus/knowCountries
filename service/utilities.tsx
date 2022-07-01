@@ -1,15 +1,22 @@
 import axios from "axios";
 
-export const fetchCountries = async () => {
-  const data = await axios.get(`/api/get-all-countries-handler`);
+const fetchCountries = async () => {
+  const { data } = await axios.get(`/api/get-all-countries-handler`);
   return data;
 };
+export const countriesFetcher = () => fetchCountries();
 
-export const searchCountryByName = async (name: string) => {
-  const data = await axios.get(
-    `/api/search-country-by-name-handler?name=${name}`
-  );
-  return data;
+export const searchCountryByName = async (
+  name: string
+): Promise<{ data: any; error: any }> => {
+  try {
+    const data = await axios.get(
+      `/api/search-country-by-name-handler?name=${name}`
+    );
+    return { data, error: null };
+  } catch (error: any) {
+    return { data: null, error: error.response.data };
+  }
 };
 
 export const filterByRegion = async (region: string) => {
@@ -26,3 +33,5 @@ export const searchCountryByFullName = async (name: string) => {
   );
   return data;
 };
+export const getCountryByFullNameFetcher = (name: string) =>
+  searchCountryByFullName(name);
