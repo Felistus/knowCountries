@@ -1,9 +1,5 @@
-import { SearchIcon } from "@heroicons/react/solid";
-import axios from "axios";
 import type { NextPage } from "next";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import ReactPaginate from "react-paginate";
+import { useEffect, useState } from "react";
 import Countries from "../components/Countries";
 import Navigation from "../components/Navigation";
 import SearchFilterBox from "../components/SearchFilterBox";
@@ -17,9 +13,6 @@ const Home: NextPage = () => {
   const [searchWord, setSearchWord] = useState<string>("");
   const [regionOption, setRegionOption] = useState<string>("");
   const [checkedTheme, setCheckedTheme] = useState<boolean>(true);
-  const itemsPerPage: number = 4;
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
   const [countries, setCountries] = useState<any[]>([]);
 
   async function getCountriesDetails() {
@@ -32,8 +25,13 @@ const Home: NextPage = () => {
   async function searchByName() {
     const { data } = await searchCountryByName(searchWord);
     if (data) {
-      setCountries(data);
+      if (data.code) {
+        alert("No such name exist, kindly check the name again and retry!");
+      } else {
+        setCountries(data);
+      }
     }
+
     return data;
   }
   async function searchByRegion() {
@@ -43,34 +41,6 @@ const Home: NextPage = () => {
     }
     return data;
   }
-
-  // searchCountryByName;
-  // const displayCountry = filteredCountryByName.filter((country: any) => {
-  //   if (
-  //     country.region
-  //       .toLowerCase()
-  //       .includes(filteredCountryByRegion.toLowerCase())
-  //   ) {
-  //     return country.region
-  //       .toLowerCase()
-  //       .includes(filteredCountryByRegion.toLowerCase());
-  //   }
-  //   return filteredCountryByName;
-  // });
-
-  // Invoke when user click to request another page.
-  const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % countries.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
-  };
-  useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCountries(countries.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(countries.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
 
   useEffect(() => {
     getCountriesDetails();
@@ -84,6 +54,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (regionOption) searchByRegion();
   }, [regionOption]);
+
   return (
     <div
       className={
@@ -114,16 +85,6 @@ const Home: NextPage = () => {
             <Countries countries={countries} checkedTheme={checkedTheme} />
           </div>
         </section>
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={8}
-          marginPagesDisplayed={2}
-          pageCount={pageCount}
-          previousLabel="< previous"
-          className="flex bg-red-600"
-        />
       </main>
     </div>
   );

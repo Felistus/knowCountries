@@ -19,3 +19,10 @@ export const filterByRegion = async (region: string) => {
   );
   return data;
 };
+
+export const searchCountryByFullName = async (name: string) => {
+  const data = await axios.get(
+    `/api/get-country-by-fullname-handler?name=${name}`
+  );
+  return data;
+};

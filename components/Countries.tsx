@@ -1,16 +1,21 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+export const imageLoader = ({ src, width, quality }: any) => {
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
 
 export default function Countries(props: any) {
-  const imageLoader = ({ src, width, quality }: any) => {
-    return `${src}?w=${width}&q=${quality || 75}`;
-  };
+  const router = useRouter();
+
   return (
     <>
       {props.countries &&
         props.countries.map((item: any, index: number) => (
           <div
+            onClick={() => router.push(`/${item.name.common}`)}
             key={index}
-            className="w-[200px] h-56 flex flex-col custom-md:justify-self-center rounded-xl  "
+            className="w-[200px] h-56 flex flex-col custom-md:justify-self-center rounded-xl cursor-pointer  "
           >
             <div className="w-full h-[100px] mb-0   ">
               <Image
