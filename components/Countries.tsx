@@ -24,6 +24,7 @@ export default function Countries(props: any) {
                 width={225}
                 height={120}
                 objectFit="cover"
+                priority={false}
               />
             </div>
             <div

@@ -57,7 +57,6 @@ const Home: NextPage = () => {
             setCheckedTheme={setCheckedTheme}
           />
         </section>
-
         <section className="px-4 my-6 lg:h-10 z-40 ">
           <SearchFilterBox
             checkedTheme={checkedTheme}
@@ -68,7 +67,7 @@ const Home: NextPage = () => {
           />
         </section>
 
-        <section className="w-full lg:h-[calc(100vh-132px)] px-4 py-4 md:py-0   ">
+        <section className="w-full px-4 py-4  ">
           {error && (
             <p
               className={

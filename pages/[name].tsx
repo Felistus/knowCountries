@@ -8,6 +8,7 @@ import LeftArrowIcon from "../components/icons/LeftArrowIcon";
 import Navigation from "../components/Navigation";
 import { getCountryByFullNameFetcher } from "../service/utilities";
 import useSWR from "swr";
+import Spinner from "../components/icons/Spinner";
 
 export default function CountryDetails() {
   const [checkedTheme, setCheckedTheme] = useState<boolean>(false);
@@ -51,13 +52,34 @@ export default function CountryDetails() {
         </section>
 
         <section className="lg:px-20 px-4 pb-4 lg:pb-0  ">
+          {error && (
+            <p
+              className={
+                `${checkedTheme ? " text-white " : " text-[#111517] "}` +
+                "italic  h-full flex text-xl items-center justify-center"
+              }
+            >
+              OOPS! an error has occured. Reload to try again!!
+            </p>
+          )}
+          {!error && !selectedCountry ? (
+            <div
+              className={
+                `${checkedTheme ? " text-white " : " text-[#111517] "}` +
+                "italic flex h-full w-full items-center text-xl justify-center space-x-2 mt-2 animate-pulse "
+              }
+            >
+              <Spinner /> <p>Loading...</p>
+            </div>
+          ) : null}
+
           {selectedCountry?.data &&
             selectedCountry?.data.map((country: any, index: number) => (
               <div
                 key={index}
                 className="lg:flex w-fit lg:w-auto mx-auto h-[250px] max-w-[1000px] lg:space-x-8 lg:mx-auto space-y-4 lg:space-y-0 "
               >
-                <div className="flex custom-md:w-[300px] w-full md:h-full h-full overflow-hidden">
+                <div className="flex custom-md:w-[300px] w-full md:h-full h-full overflow-hidden slideInFlag">
                   <Image
                     loader={imageLoader}
                     src={country.flags.svg}
@@ -67,7 +89,7 @@ export default function CountryDetails() {
                     objectFit="cover"
                   />
                 </div>
-                <div className=" flex flex-1 flex-col justify-center pb-4 py-3">
+                <div className=" flex flex-1 flex-col justify-center pb-4 py-3 slideInDetails">
                   <div className="font-bold capitalize text-2xl ">
                     <p>{country.name.common}</p>
                   </div>
