@@ -18,3 +18,44 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.customScroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background: #525861;
+  border-radius: 8px;
+}
+
+@keyframes flag {
+  0% {
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}
+@keyframes details {
+  0% {
+    left: 100px;
+    top: 0px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}
+
+.slideInFlag {
+  position: relative;
+  animation-name: flag;
+  animation-duration: 4s;
+}
+.slideInDetails {
+  position: relative;
+  animation-name: details;
+  animation-duration: 4s;
+}

@@ -1,10 +1,9 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import { Type } from "./ModeToggle";
 
 const regions = [
-  { name: "Filter by Region", default: true },
+  { name: "Filter by Region" },
   { name: "Africa" },
   { name: "America" },
   { name: "Asia" },
@@ -12,17 +11,23 @@ const regions = [
   { name: "Oceania" },
 ];
 
-export default function SelectBox({ checkedTheme }: Type) {
+export default function SelectBox(props: any) {
   const [selected, setSelected] = useState(regions[0]);
 
+  useEffect(() => {
+    props.setRegionOption(selected.name);
+  }, [selected]);
+
   return (
-    <div className="w-72 h-10 text-slate-300">
+    <div className="w-72 h-10 text-slate-300 z-40">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative h-10 ">
           <Listbox.Button
             className={
               `${
-                checkedTheme ? " bg-[#2b3945] " : " bg-white text-[#111517] "
+                props.checkedTheme
+                  ? " bg-[#2b3945] "
+                  : " bg-white text-[#111517] "
               }` +
               "relative w-full cursor-default rounded-lg h-10 pl-3 pr-10 text-left shadow-md focus:outline-none "
             }
@@ -44,9 +49,11 @@ export default function SelectBox({ checkedTheme }: Type) {
             <Listbox.Options
               className={
                 `${
-                  checkedTheme ? " bg-[#2b3945] " : " bg-white text-[#111517] "
+                  props.checkedTheme
+                    ? " bg-[#2b3945] "
+                    : " bg-white text-[#111517] "
                 }` +
-                "absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                "absolute mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm customScroll"
               }
             >
               {regions.map((person, personIdx) => (
@@ -58,7 +65,6 @@ export default function SelectBox({ checkedTheme }: Type) {
                     }`
                   }
                   value={person}
-                  disabled={person.default}
                 >
                   {({ selected }) => (
                     <>
