@@ -12,6 +12,8 @@ import {
   searchCountryByName,
 } from "../service/utilities";
 import Spinner from "../components/icons/Spinner";
+import Pagination from "../components/Pagination";
+import { paginate } from "../components/paginate";
 
 const Home: NextPage = () => {
   const { data: foundCountries, error } = useSWR("all", countriesFetcher);
@@ -19,6 +21,18 @@ const Home: NextPage = () => {
   const [regionOption, setRegionOption] = useState<string>("");
   const [checkedTheme, setCheckedTheme] = useState<boolean>(true);
   const [countries, setCountries] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(8);
+  const pageOfCountries = paginate(countries, currentPage, pageSize);
+
+  const handlePageChange = (pageNumber, totalPages) => {
+    if (pageNumber !== "prev" && pageNumber !== "next")
+      setCurrentPage(pageNumber);
+    else if (pageNumber === "prev" && currentPage > 1)
+      setCurrentPage(currentPage - 1);
+    else if (pageNumber === "next" && currentPage < totalPages)
+      setCurrentPage(currentPage + 1);
+  };
 
   async function searchByName() {
     const { data: foundCountry, error } = await searchCountryByName(searchWord);
@@ -43,6 +57,7 @@ const Home: NextPage = () => {
     if (regionOption) searchByRegion();
   }, [regionOption]);
 
+  if (!countries) return null;
   return (
     <div
       className={
@@ -89,9 +104,18 @@ const Home: NextPage = () => {
             </div>
           ) : null}
           <div className="lg:w-[1000px] grid lg:grid-cols-4 custom-md:grid-cols-2 justify-center items-center lg:gap-x-[66.67px] gap-y-10 mx-auto ">
-            <Countries countries={countries} checkedTheme={checkedTheme} />
+            <Countries
+              countries={pageOfCountries}
+              checkedTheme={checkedTheme}
+            />
           </div>
         </section>
+        <Pagination
+          itemsCount={countries.length}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
         <ToastContainer autoClose={2000} position="top-center" theme="dark" />
       </main>
     </div>
