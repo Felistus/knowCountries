@@ -50,6 +50,9 @@ a {
   }
 }
 
+.boxShadow:hover {
+  box-shadow: 1px 1px 20px grey;
+}
 .slideInFlag {
   position: relative;
   animation-name: flag;

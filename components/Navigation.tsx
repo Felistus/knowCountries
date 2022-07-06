@@ -12,7 +12,11 @@ export default function Navigation({ checkedTheme, setCheckedTheme }: Type) {
       }
     >
       <div className="lg:w-[1000px] flex justify-between h-full items-center mx-auto ">
-        <p className={`${checkedTheme ? " text-white" : "text-[#111517]"}`}>
+        <p
+          className={
+            `${checkedTheme ? " text-white " : " text-[#111517] "}` + "text-xl"
+          }
+        >
           Where in the world?
         </p>
         <div className="flex items-center space-x-1">

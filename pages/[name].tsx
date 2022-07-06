@@ -1,8 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { imageLoader } from "../components/Countries";
 import DarkLeftArrowIcon from "../components/icons/DarkLeftArrowIcon";
 import LeftArrowIcon from "../components/icons/LeftArrowIcon";
 import Navigation from "../components/Navigation";
@@ -18,7 +16,6 @@ export default function CountryDetails() {
     name,
     getCountryByFullNameFetcher
   );
-
   return (
     <div
       className={
@@ -33,15 +30,15 @@ export default function CountryDetails() {
           setCheckedTheme={setCheckedTheme}
         />
 
-        <section className="px-4 my-10">
+        <section className="my-10 ">
           <Link href="/">
-            <div className="lg:w-[1000px] mx-auto">
+            <div className="lg:px-10 px-4">
               <button
                 className={
                   `${
                     checkedTheme ? " bg-[#2b3945] " : " bg-white border-[1px] "
                   }` +
-                  "flex items-center space-x-2 hover:shadow-md h-7 px-4 font-medium capitalize rounded-md"
+                  "flex items-center space-x-2 hover:shadow-md h-7 px-4 font-medium capitalize rounded-sm"
                 }
               >
                 {checkedTheme ? <LeftArrowIcon /> : <DarkLeftArrowIcon />}
@@ -51,7 +48,7 @@ export default function CountryDetails() {
           </Link>
         </section>
 
-        <section className="lg:px-20 px-4 pb-4 lg:pb-0  ">
+        <section className="lg:px-10 px-4 pb-4 lg:pb-0  ">
           {error && (
             <p
               className={
@@ -77,59 +74,55 @@ export default function CountryDetails() {
             selectedCountry?.data.map((country: any, index: number) => (
               <div
                 key={index}
-                className="lg:flex w-fit lg:w-auto mx-auto h-[250px] max-w-[1000px] lg:space-x-8 lg:mx-auto space-y-4 lg:space-y-0 "
+                className="custom-lg:grid grid-flow-col auto-cols-auto gap-x-8 space-y-10 custom-lg:space-y-0    "
               >
-                <div className="flex custom-md:w-[300px] w-full md:h-full h-full overflow-hidden slideInFlag">
-                  <Image
-                    loader={imageLoader}
+                <div className="custom-md:w-[500px] flex items-center  ">
+                  <img
                     src={country.flags.svg}
-                    alt="Country flag"
-                    width={500}
-                    height={300}
-                    objectFit="cover"
+                    alt={country.name.common + "flag"}
+                    className="w-full  rounded-lg"
                   />
                 </div>
-                <div className=" flex flex-1 flex-col justify-center pb-4 py-3 slideInDetails">
-                  <div className="font-bold capitalize text-2xl ">
+
+                <div className="py-4 grid grid-cols-1 ">
+                  <div className="font-bold capitalize text-3xl mb-3  ">
                     <p>{country.name.common}</p>
                   </div>
-                  <div className="my-4 text-sm lg:space-x-4 lg:flex justify-between items-center  ">
+                  <div className="medium:grid grid-flow-col auto-cols-auto gap-x-8 text-base space-y-8 medium:space-y-0">
                     <div>
-                      <span className="flex space-x-2 ">
+                      <div className="flex space-x-2 my-2 ">
                         <p className="font-semibold">Area: </p>
-                        <p>{country.area}</p>
-                      </span>
-                      <span className="flex space-x-2">
+                        <p>{country.area.toLocaleString("en-US")}</p>
+                      </div>
+                      <div className="flex space-x-2">
                         <p className="font-semibold">Population: </p>
-                        <p>{country.population}</p>
-                      </span>
-                      <span className="flex space-x-2">
+                        <p>{country.population.toLocaleString("en-US")}</p>
+                      </div>
+                      <div className="flex space-x-2 my-2">
                         <p className="font-semibold">Region: </p>
                         <p>{country.region}</p>
-                      </span>
-                      <span className="flex space-x-2">
+                      </div>
+                      <div className="flex space-x-2">
                         <p className="font-semibold">Sub Region: </p>
                         <p>{country.subregion}</p>
-                      </span>
+                      </div>
 
-                      <span className="flex space-x-2">
-                        <p className="font-semibold">Official: </p>
-                        <p>{country.name.official}</p>
-                      </span>
+                      <div className="flex space-x-2 my-2">
+                        <p className="font-semibold">Timezone: </p>
+                        <p>{country.timezones}</p>
+                      </div>
                     </div>
-                    <div className="lg:w-[400px] ">
-                      <span className="flex space-x-2">
-                        <p className="font-semibold">Capital: </p>
-                        <div className="flex space-x-2">
-                          {country.capital
-                            ? country.capital.map(
-                                (item: string, el: number) => (
-                                  <p key={el}>{item}</p>
-                                )
-                              )
-                            : "No Capital"}
-                        </div>
-                      </span>
+                    <div className="">
+                      <div className="flex flex-wrap my-2">
+                        <span className="font-semibold mr-2">Capital: </span>
+                        {country.capital
+                          ? country.capital.map((item: string, el: number) => (
+                              <span className="mr-2" key={el}>
+                                {item}
+                              </span>
+                            ))
+                          : "No Capital"}
+                      </div>
 
                       <div className=" space-x-2">
                         <span className="font-semibold">Currencies: </span>
@@ -143,11 +136,11 @@ export default function CountryDetails() {
                             )
                           : "No Currency"}
                       </div>
-                      <div className="space-x-2">
-                        <span className="font-semibold">Languages: </span>
+                      <div className="flex flex-wrap flex-shrink my-2 ">
+                        <span className="font-semibold mr-2">Languages: </span>
                         {Object.keys(country.languages).map(
                           (language: string, languageIndex: number) => (
-                            <span key={languageIndex}>
+                            <span className="mr-2" key={languageIndex}>
                               {country.languages[language]}
                             </span>
                           )
@@ -155,28 +148,30 @@ export default function CountryDetails() {
                       </div>
                     </div>
                   </div>
-
-                  <span className="">
-                    <span className="font-semibold">Border Countries: </span>
-                    <div className="flex space-x-2">
+                  <div className="mt-8 w-fit">
+                    <div className="font-semibold mb-3 text-xl">
+                      Border Countries:
+                    </div>
+                    <div className="grid grid-cols-3 custom-md:grid-cols-6 gap-2  ">
                       {country.borders
                         ? country.borders.map((item: string, el: number) => (
-                            <span
+                            <div
                               className={
                                 `${
                                   checkedTheme
                                     ? " bg-[#2b3945] "
                                     : " bg-white border-[1px] "
-                                }` + "shadow-sm font-medium px-2 rounded-lg "
+                                }` +
+                                "shadow-md font-normal w-20 rounded-sm text-center p-1 "
                               }
                               key={el}
                             >
                               {item}
-                            </span>
+                            </div>
                           ))
                         : "No boder info"}
                     </div>
-                  </span>
+                  </div>
                 </div>
               </div>
             ))}

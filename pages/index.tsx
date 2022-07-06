@@ -13,7 +13,7 @@ import {
 } from "../service/utilities";
 import Spinner from "../components/icons/Spinner";
 import Pagination from "../components/Pagination";
-import { paginate } from "../components/paginate";
+import { paginate } from "../service/paginate";
 
 const Home: NextPage = () => {
   const { data: foundCountries, error } = useSWR("all", countriesFetcher);
@@ -21,11 +21,11 @@ const Home: NextPage = () => {
   const [regionOption, setRegionOption] = useState<string>("");
   const [checkedTheme, setCheckedTheme] = useState<boolean>(true);
   const [countries, setCountries] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(8);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize] = useState<number>(8);
   const pageOfCountries = paginate(countries, currentPage, pageSize);
 
-  const handlePageChange = (pageNumber, totalPages) => {
+  const handlePageChange = (pageNumber: any, totalPages: number) => {
     if (pageNumber !== "prev" && pageNumber !== "next")
       setCurrentPage(pageNumber);
     else if (pageNumber === "prev" && currentPage > 1)

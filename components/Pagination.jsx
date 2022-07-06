@@ -37,7 +37,6 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
     );
     return { pageNumbers, totalPages };
   };
-
   const pageData = calculatePagesToRender();
 
   // these are just buttons with numbers that tell the parent element which page to go to
@@ -55,11 +54,7 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
       {pageData.pageNumbers.map((pageNumber) => (
         <button
           key={pageNumber}
-          className={
-            pageNumber === currentPage
-              ? "btn active"
-              : "btn"
-          }
+          className={pageNumber === currentPage ? "btn active" : "btn"}
           aria-label={"Page " + pageNumber}
           onClick={() => onPageChange(pageNumber, pageData.totalPages)}
         >

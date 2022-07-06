@@ -52,7 +52,7 @@ Users should be able to:
 
 ### Continued development
 
-Adding React Pagination to control displayed data
+Adding React Pagination to control displayed data: DONE
 
 ## Author
 

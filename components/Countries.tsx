@@ -14,9 +14,9 @@ export default function Countries(props: any) {
           <div
             onClick={() => router.push(`/${item.name.common}`)}
             key={index}
-            className="w-[200px] h-56 flex flex-col custom-md:justify-self-center rounded-xl cursor-pointer  "
+            className="overflow-hidden w-[200px] h-56 flex flex-col custom-md:justify-self-center rounded-md cursor-pointer boxShadow "
           >
-            <div className="w-full h-[100px] mb-0   ">
+            <div className="w-full h-[100px] mb-0    ">
               <Image
                 loader={imageLoader}
                 src={item.flags.svg}
@@ -49,7 +49,9 @@ export default function Countries(props: any) {
                   }` + "text-xs space-y-1"
                 }
               >
-                <p className="font-medium">Population: {item.population}</p>
+                <p className="font-medium">
+                  Population: {item.population.toLocaleString("en-US")}
+                </p>
                 <p className="font-medium">Region: {item.region}</p>
                 <p className="font-medium">Capital: {item.capital}</p>
               </div>

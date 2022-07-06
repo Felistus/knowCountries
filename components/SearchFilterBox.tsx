@@ -22,6 +22,7 @@ export default function SearchFilterBox(props: any) {
           name="countrySearch"
           value={props.searchWord}
           onChange={handleSearchChange}
+          autoComplete="off"
           placeholder="Search for a country..."
           className={
             `${props.checkedTheme ? "" : " text-[#858585] "}` +
