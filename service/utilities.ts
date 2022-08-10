@@ -2,7 +2,12 @@ import axios from "axios";
 
 const fetchCountries = async () => {
   const { data } = await axios.get(`/api/get-all-countries-handler`);
-  return data;
+  const sortedCities = data.sort((a: any, b: any) => {
+    if (a.name.common < b.name.common) return -1;
+    if (a.name.common > b.name.common) return 1;
+    return 0;
+  });
+  return sortedCities;
 };
 export const countriesFetcher = () => fetchCountries();
 
